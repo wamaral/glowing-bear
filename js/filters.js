@@ -51,3 +51,28 @@ weechat.filter('inlinecolour', ['$sce', function($sce) {
         return $sce.trustAsHtml(text.replace(hexColourRegex, substitute));
     };
 }]);
+
+weechat.filter('channelChar', function () {
+    'use strict';
+
+    return function (channel) {
+        var match = channel.match(/^([#&+!~]).*/);
+        if (!match) {
+            return '';
+        }
+        return match[1];
+    };
+});
+
+weechat.filter('trimmedName', function () {
+    'use strict';
+
+    return function (buffer) {
+        if (buffer.shortName !== "") {
+            return buffer.shortName.replace(/^[#&+!~](.*)/, '$1');
+        } else {
+            return buffer.fullName;
+        }
+
+    };
+});

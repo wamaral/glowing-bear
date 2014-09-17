@@ -207,7 +207,7 @@ input[type=text], input[type=password], #sendMessage, .badge {
     margin-right: -10px;
 }
 
-#sidebar ul.indented li.indent span.buffername {
+#sidebar ul.indented li.indent span.channelchar {
     padding-left: 10px;
 }
 
@@ -513,18 +513,20 @@ h2 span, h2 small {
     }
 }
 /* bold hash before channels */
-li.buffer.channel a span:last-of-type:before {
+li.buffer.channel span.channelchar {
     color: #888;
-    content: "#";
     font-weight: bold;
 }
 
-li.buffer.channel.active a span:last-of-type:before {
+li.buffer.channel.active span.channelchar {
     color: #444;
 }
 
-li.buffer.channel.active a:hover span:last-of-type:before {
+li.buffer.channel.active a:hover span.channelchar {
     color: #222;
+}
+li.buffer.server a {
+    color: #aaa;
 }
 
 li.buffer.indent.private a {
