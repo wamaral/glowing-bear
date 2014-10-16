@@ -109,6 +109,10 @@ weechat.factory('notifications', ['$rootScope', '$log', 'models', function($root
             icon: 'assets/img/favicon.png'
         });
 
+        // Save notification, so we can close all outstanding ones when disconnecting
+        notification.id = $rootScope.notifications.length;
+        $rootScope.notifications.push(notification);
+
         // Cancel notification automatically
         var timeout = 15*1000;
         notification.onshow = function() {
@@ -122,6 +126,11 @@ weechat.factory('notifications', ['$rootScope', '$log', 'models', function($root
             models.setActiveBuffer(buffer.id);
             window.focus();
             notification.close();
+        };
+
+        // Remove from list of active notifications
+        notification.onclose = function() {
+            delete $rootScope.notifications[this.id];
         };
 
         if ($rootScope.soundnotification) {

@@ -221,6 +221,19 @@ weechat.controller('WeechatCtrl', ['$rootScope', '$scope', '$store', '$timeout',
     });
 
     $rootScope.$on('relayDisconnect', function() {
+        // Reset title
+        $rootScope.pageTitle = '';
+        $rootScope.notificationStatus = '';
+
+        // Close all outstanding notifications
+        for (var i = 0; i < $rootScope.notifications.length; i++) {
+            if ($rootScope.notifications[i] !== undefined) {
+                console.log('closing notification', i);
+                $rootScope.notifications[i].close();
+            }
+        }
+        $rootScope.notifications = [];
+
         models.reinitialize();
         $rootScope.$emit('notificationChanged');
         $scope.connectbutton = 'Connect';
@@ -240,6 +253,8 @@ weechat.controller('WeechatCtrl', ['$rootScope', '$scope', '$store', '$timeout',
     $rootScope.models = models;
 
     $rootScope.iterCandidate = null;
+
+    $rootScope.notifications = [];
 
     $store.bind($scope, "host", "localhost");
     $store.bind($scope, "port", "9001");
