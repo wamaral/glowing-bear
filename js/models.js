@@ -480,6 +480,7 @@ models.service('models', ['$rootScope', '$filter', function($rootScope, $filter)
             // turn off the active status for the previous buffer
             previousBuffer.active = false;
             // Save the last line we saw
+            console.log('setActiveBuffer:', previousBuffer.shortName, 'lastSeen = ', previousBuffer.lines.length-1);
             previousBuffer.lastSeen = previousBuffer.lines.length-1;
         }
 

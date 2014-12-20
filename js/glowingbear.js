@@ -128,6 +128,7 @@ weechat.controller('WeechatCtrl', ['$rootScope', '$scope', '$store', '$timeout',
         var linesToRemove = Math.min(minRetainUnread, surplusLines);
 
         if (linesToRemove > 0) {
+            console.log('activeBufferChanged: trimming', linesToRemove, 'lines (subtracting from ', ab.shortName, 'lastSeen)');
             ab.lines.splice(0, linesToRemove);  // remove the lines from the buffer
             ab.requestedLines -= linesToRemove;  // to ensure that the correct amount of lines is fetched should more be requested
             ab.lastSeen -= linesToRemove;  // adjust readmarker

@@ -232,6 +232,7 @@ weechat.factory('connection',
 //XXX move to handlers?
             // delete old lines and add new ones
             var oldLength = buffer.lines.length;
+            var oldLastSeen = buffer.lastSeen;
             // whether we already had all unread lines
             var hadAllUnreadLines = buffer.lastSeen >= 0;
 
@@ -248,7 +249,9 @@ weechat.factory('connection',
             handlers.handleLineInfo(lineinfo, true);
 
             // Correct the read marker for the lines that were counted twice
+            $log.debug('fetchMoreLines: subtracting', oldLength, 'from ', buffer.shortName, 'lastSeen with dupes =', buffer.lastSeen);
             buffer.lastSeen -= oldLength;
+            $log.debug('fetchMoreLines: old ', buffer.shortName, 'lastSeen =', oldLastSeen, 'new =', buffer.lastSeen);
 
             // We requested more lines than we got, no more lines.
             if (linesReceivedCount < numLines) {
